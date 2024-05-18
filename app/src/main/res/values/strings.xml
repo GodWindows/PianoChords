@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PianoChords</string>
+    <string name="reset">Reset</string>
+    <string name="start">Commencer</string>
 </resources>
