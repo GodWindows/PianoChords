@@ -8,11 +8,11 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/chordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="@color/white"
-        android:id="@+id/chordText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
