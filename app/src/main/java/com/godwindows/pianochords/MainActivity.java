@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         running[0] = true;
-                        startButton.setActivated(false);
-                        resetButton.setActivated(true);
+                        startButton.setEnabled(false);
+                        resetButton.setEnabled(true);
                         swipeChords(2000);
                         Toast.makeText(MainActivity.this, "Début", Toast.LENGTH_SHORT).show();
                     }
@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        resetButton.setActivated(false);
-                        startButton.setActivated(true);
+                        resetButton.setEnabled(false);
+                        startButton.setEnabled(true);
                         running[0] = false;
                         Toast.makeText(MainActivity.this, "Stop", Toast.LENGTH_SHORT).show();
                     }
