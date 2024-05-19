@@ -12,6 +12,8 @@ import android.text.style.SubscriptSpan;
 import android.text.style.SuperscriptSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView chordText;
     private Button resetButton;
     private Button startButton;
+    private RadioButton smallValueRadio ;
+    private RadioButton mediumValueRadio  ;
+    private RadioButton largeValueRadio  ;
+    private RadioGroup secondsRadioGroup;
+    private final int SMALL_DURATION = 5000;
+    private final int MEDIUM_DURATION = 10000;
+    private final int LARGE_DURATION = 15000;
+    private int delay ;
     private  boolean[] running = {true};
 
     @Override
@@ -30,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
         chordText =  findViewById(R.id.chordText);
         resetButton = (Button) findViewById(R.id.resetButton);
         startButton = (Button) findViewById(R.id.startButton);
+        smallValueRadio = findViewById(R.id.smallValueRadio);
+        mediumValueRadio = findViewById(R.id.mediumValueRadio);
+        largeValueRadio = findViewById(R.id.largeValueRadio);
+        secondsRadioGroup = (RadioGroup) findViewById(R.id.radioGroup) ;
         initializeComponents();
 
     }
@@ -43,20 +57,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (i[0] < Chord.getAllChords().size() && running[0]) {
-                            /*SpannableStringBuilder cs = new SpannableStringBuilder("X3 + X#m");
-                            cs.setSpan(new SuperscriptSpan(), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            cs.setSpan(new RelativeSizeSpan(0.75f), 1, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            cs.setSpan(new SuperscriptSpan(), 6, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            cs.setSpan(new RelativeSizeSpan(0.75f), 6, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            cs.setSpan(new SubscriptSpan(), 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            cs.setSpan(new RelativeSizeSpan(0.75f), 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            chordText.setText(cs);*/
                             chordText.setText(chordToText(Chord.getAllChords().get(i[0])));
                             i[0]++;
-                                myHandler.postDelayed(this, timeGap);
+                            myHandler.postDelayed(this, timeGap);
                         }
-                        if (i[0]==20){
-                            chordText.setText("");
+                        if (i[0]==Chord.getAllChords().size()){ // TODO: Le défilement n'affiche pas le dernier élément
+                            resetButton.callOnClick();
                         }
                     }
                 },
@@ -76,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
                         running[0] = true;
                         startButton.setEnabled(false);
                         resetButton.setEnabled(true);
-                        swipeChords(1000);
-                        Toast.makeText(MainActivity.this, "Début", Toast.LENGTH_SHORT).show();
+                        disableRadios();
+                        swipeChords(delay);
                     }
                 }
         );
@@ -89,11 +95,33 @@ public class MainActivity extends AppCompatActivity {
                         chordText.setText("");
                         resetButton.setEnabled(false);
                         startButton.setEnabled(true);
+                        enableRadios();
                         running[0] = false;
-                        Toast.makeText(MainActivity.this, "Stop", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
+
+
+        secondsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId==R.id.smallValueRadio && smallValueRadio.isChecked() ){
+                    delay = SMALL_DURATION;
+                }
+                if (checkedId==R.id.mediumValueRadio && mediumValueRadio.isChecked() ){
+                    delay = MEDIUM_DURATION;
+                }
+                if (checkedId==R.id.largeValueRadio && largeValueRadio.isChecked() ){
+                    delay = LARGE_DURATION;
+                }
+
+                Toast.makeText(MainActivity.this, ""+delay, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        smallValueRadio.setChecked(true);
+
     }
 
     protected Spanned chordToText(Chord myChord){
@@ -103,5 +131,18 @@ public class MainActivity extends AppCompatActivity {
         if(myChord.isSharp()) exponant = "<sup>#</sup>";
         if (myChord.isMinor()) subscriptMinor  = "ₘ";
         return Html.fromHtml(myChord.getValue()+exponant+subscriptMinor,0);
+    }
+
+    protected void disableRadios(){
+        changeRadiosState(false);
+    }
+    protected void enableRadios(){
+        changeRadiosState(true);
+    }
+
+    protected void changeRadiosState(boolean state) {
+        smallValueRadio.setEnabled(state);
+        mediumValueRadio.setEnabled(state);
+        largeValueRadio.setEnabled(state);
     }
 }

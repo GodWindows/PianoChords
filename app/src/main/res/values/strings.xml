@@ -3,7 +3,7 @@
     <string name="reset">Reset</string>
     <string name="start">Commencer</string>
     <string name="delayTitle">Délai entre chaque accord : </string>
-    <string name="seconds5">5 secondes </string>
-    <string name="seconds10">10 secondes </string>
-    <string name="seconds15">15 secondes </string>
+    <string name="firstValue">5 secondes </string>
+    <string name="secondValue">10 secondes </string>
+    <string name="thirdValue">15 secondes </string>
 </resources>

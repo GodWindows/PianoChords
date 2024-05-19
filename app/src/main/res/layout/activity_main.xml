@@ -63,6 +63,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/chordText" />
 
                 <RadioGroup
+                    android:id="@+id/radioGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -72,22 +73,22 @@
                     app:layout_constraintTop_toBottomOf="@+id/delayTitle">
 
                     <RadioButton
-                        android:id="@+id/radioButton"
+                        android:id="@+id/smallValueRadio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/seconds5" />
+                        android:text="@string/firstValue" />
 
                     <RadioButton
-                        android:id="@+id/radioButton2"
+                        android:id="@+id/mediumValueRadio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/seconds10" />
+                        android:text="@string/secondValue" />
 
                     <RadioButton
-                        android:id="@+id/radioButton3"
+                        android:id="@+id/largeValueRadio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/seconds15" />
+                        android:text="@string/thirdValue" />
                 </RadioGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
