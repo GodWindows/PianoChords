@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     protected void swipeChords(int timeGap){
         Handler myHandler = new Handler(Looper.getMainLooper());
-        final int[] i={0};
-        chordText.setText(chordToText(Chord.getAllChords().get(i[0])));
+        chordText.setText(chordToText(Chord.getAllChords().get(0)));
+        final int[] i={1};
         myHandler.postDelayed(
                 new Runnable() {
                     @Override
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void initializeComponents(){
 
-        chordText.setTextSize(40);
+        chordText.setTextSize(70);
 
         startButton.setOnClickListener(
                 new View.OnClickListener() {

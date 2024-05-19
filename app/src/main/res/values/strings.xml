@@ -2,4 +2,8 @@
     <string name="app_name">PianoChords</string>
     <string name="reset">Reset</string>
     <string name="start">Commencer</string>
+    <string name="delayTitle">Délai entre chaque accord : </string>
+    <string name="seconds5">5 secondes </string>
+    <string name="seconds10">10 secondes </string>
+    <string name="seconds15">15 secondes </string>
 </resources>
