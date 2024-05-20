@@ -24,6 +24,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    /* The chord display on the screen is done using three TextViews:
+     - a main one to write the value of the chord
+     - an exponant to write the potential '#' or 'b' of the chord
+     - a subscript to write the 'm' in case the chord is minor
+     */
+
     private TextView chordMainText;
     private TextView chordExponantText;
     private TextView chordSubscriptText;
@@ -36,11 +42,15 @@ public class MainActivity extends AppCompatActivity {
     private Switch minorSwitch;
     private Switch flatAndSharpSwitch;
     private Switch traductionSwitch;
-    private final int SMALL_DURATION = 1000;
+    private Handler myHandler;
+
+    /*The following values can be changed if you want to custom the delay duration between two chords.
+    Just make sure to change the 'string.xml' file accordingly on the firstValue, secondValue and thirdValue keys*/
+    private final int SMALL_DURATION = 5000; //
     private final int MEDIUM_DURATION = 10000;
     private final int LARGE_DURATION = 15000;
     private int delay ;
-    private  boolean[] running = {true};
+    private  boolean[] running = {true};//This variable will be signal to know if the app can continue swiping chords or if the app has to stop swiping( when "reset" is pressed for example)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,23 +71,22 @@ public class MainActivity extends AppCompatActivity {
         initializeComponents();
 
     }
-
+    /* This method will go through all the needed chords and put them on the screen, one after another */
     protected void swipeChords(int timeGap){
-        Handler myHandler = new Handler(Looper.getMainLooper());
-        ArrayList<Chord> chords = Chord.getChords(minorSwitch.isChecked(), flatAndSharpSwitch.isChecked());
-        updateChordText(chords.get(0));
-        final int[] i={1};
+        myHandler = new Handler(Looper.getMainLooper());
+        ArrayList<Chord> chords = Chord.getChords(minorSwitch.isChecked(), flatAndSharpSwitch.isChecked()); //Get all the needed chords from the Chord enum and put them in an chord array
+        updateChordText(chords.get(0));//Put the first chord on the screen without any delay
+        final int[] i={1};// an index variable to browse the chord array
         myHandler.postDelayed(
                 new Runnable() {
                     @Override
                     public void run() {
-                        if (i[0] < chords.size() && running[0]) {
-                            updateChordText(chords.get(i[0]));
+                        if (i[0] < chords.size() && running[0]) {//If the index is still in the chord array's bounds and the "reset" button has not been pressed
+                            updateChordText(chords.get(i[0]));//Put the next chord on the screen
                             i[0]++;
-                            myHandler.postDelayed(this, timeGap);
-                        }// TODO: Le défilement n'affiche pas le dernier élément
-                        if (i[0]==chords.size()){
-                            resetButton.callOnClick();
+                            myHandler.postDelayed(this, timeGap);// Re-launch the runnable for the next index in the chord array
+                        }else if (i[0]==chords.size()){ // If the chord array is entirely read
+                            resetButton.callOnClick(); //stop the swiping
                         }
                     }
                 },
@@ -87,10 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     protected void initializeComponents(){
-
-        chordMainText.setTextSize(70);
-        chordExponantText.setTextSize(35);
-        chordSubscriptText.setTextSize(35);
+        /*Allow minors flats and sharps by default*/
         minorSwitch.setChecked(true);
         flatAndSharpSwitch.setChecked(true);
 
@@ -98,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        running[0] = true;
+                        running[0] = true; //Allow the swiping
                         startButton.setEnabled(false);
                         resetButton.setEnabled(true);
                         disableOptions();
@@ -116,14 +122,16 @@ public class MainActivity extends AppCompatActivity {
                         startButton.setEnabled(true);
                         enableOptions();
                         running[0] = false;
+                        myHandler.removeCallbacksAndMessages(null);
                     }
                 }
         );
-        resetButton.setEnabled(false);
+        resetButton.setEnabled(false); //Initialize the app with the reset button disabled
 
 
         secondsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
+            /* Affect the matching duration delay to each radio button */
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId==R.id.smallValueRadio && smallValueRadio.isChecked() ){
@@ -135,21 +143,21 @@ public class MainActivity extends AppCompatActivity {
                 if (checkedId==R.id.largeValueRadio && largeValueRadio.isChecked() ){
                     delay = LARGE_DURATION;
                 }
-
-                Toast.makeText(MainActivity.this, ""+delay, Toast.LENGTH_SHORT).show();
             }
         });
 
-        smallValueRadio.setChecked(true);
+        smallValueRadio.setChecked(true);// Select the small duration by default
 
     }
 
+    /*Clear the chord from the screen*/
     private void clearChordText() {
         chordMainText.setText("");
         chordExponantText.setText("");
         chordSubscriptText.setText("");
     }
 
+    /* Write a new chord on the screen */
     protected void updateChordText(Chord myChord){
         String exponant  = "";
         String subscript  = "";
@@ -157,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         if(myChord.isFlat()) exponant = "b";
         if(myChord.isSharp()) exponant = "#";
         if (myChord.isMinor()) subscript  = "m";
-        if (traductionSwitch.isChecked()){
+        if (traductionSwitch.isChecked()){//Select the french version of the chord this the traduction is allowed
             main = Chord.translate(myChord.getValue());
         }
         else {
@@ -176,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         changeOptionsState(true);
     }
 
-    protected void changeOptionsState(boolean state) {
+    protected void changeOptionsState(boolean state) {//disable or enable all the switches and radio buttons
         smallValueRadio.setEnabled(state);
         mediumValueRadio.setEnabled(state);
         largeValueRadio.setEnabled(state);

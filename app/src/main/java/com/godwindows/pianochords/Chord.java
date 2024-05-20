@@ -68,8 +68,9 @@ public enum Chord {
         return isSharp;
     }
 
-    public static ArrayList<Chord> getChords(boolean withMinors, boolean withFlatAndSharp){
+    public static ArrayList<Chord> getChords(boolean withMinors, boolean withFlatAndSharp){ //Return all the chords which match the parameters in arguments
         ArrayList<Chord> allChords = new ArrayList<>();
+        //add all the basic chords
         allChords.add(C_MAJOR);
         allChords.add(D_MAJOR);
         allChords.add(E_MAJOR);
@@ -77,7 +78,7 @@ public enum Chord {
         allChords.add(G_MAJOR);
         allChords.add(A_MAJOR);
         allChords.add(B_MAJOR);
-        if (withMinors && withFlatAndSharp){
+        if (withMinors && withFlatAndSharp){ // add all the flat/sharp and minor chords
             allChords.add(C_MINOR_SHARP);
             allChords.add(D_MINOR_FLAT);
             allChords.add(E_MINOR_FLAT);
@@ -89,7 +90,7 @@ public enum Chord {
             allChords.add(A_MINOR_SHARP);
             allChords.add(B_MINOR_FLAT);
         }
-        if (withMinors){
+        if (withMinors){ // add only the minor chords
             allChords.add(C_MINOR);
             allChords.add(D_MINOR);
             allChords.add(E_MINOR);
@@ -98,7 +99,7 @@ public enum Chord {
             allChords.add(A_MINOR);
             allChords.add(B_MINOR);
         }
-        if (withFlatAndSharp){
+        if (withFlatAndSharp){ // add only the flat/sharp chords
             allChords.add(C_MAJOR_SHARP);
             allChords.add(D_MAJOR_FLAT);
             allChords.add(D_MAJOR_SHARP);
