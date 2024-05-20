@@ -1,6 +1,7 @@
 package com.godwindows.pianochords;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public enum Chord {
     //DO
@@ -110,5 +111,25 @@ public enum Chord {
             allChords.add(B_MAJOR_FLAT);
         }
         return allChords;
+    }
+
+    public static String translate(String value){
+        final HashMap<String, String> internationalToFrench = new HashMap<>();
+        internationalToFrench.put("C", "Do");
+        internationalToFrench.put("D", "Ré");
+        internationalToFrench.put("E", "Mi");
+        internationalToFrench.put("F", "Fa");
+        internationalToFrench.put("G", "Sol");
+        internationalToFrench.put("A", "La");
+        internationalToFrench.put("B", "Si");
+        String traduction ;
+        if (internationalToFrench.containsKey(value)){
+            traduction = internationalToFrench.get(value);
+        }
+        else {
+            traduction = "XX";
+        }
+
+        return traduction;
     }
 }
