@@ -6,4 +6,7 @@
     <string name="firstValue">5 secondes </string>
     <string name="secondValue">10 secondes </string>
     <string name="thirdValue">15 secondes </string>
+    <string name="includeMinorsTitle">Inclus accords mineurs </string>
+    <string name="includeFlatAndSharpTitle">Inclus accords bémol et dièse </string>
+    <string name="traductionTitle">Traduire les notes en français</string>
 </resources>

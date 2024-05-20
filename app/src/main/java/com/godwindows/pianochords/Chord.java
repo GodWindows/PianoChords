@@ -67,42 +67,48 @@ public enum Chord {
         return isSharp;
     }
 
-    public static ArrayList<Chord> getAllChords(){
+    public static ArrayList<Chord> getChords(boolean withMinors, boolean withFlatAndSharp){
         ArrayList<Chord> allChords = new ArrayList<>();
         allChords.add(C_MAJOR);
-        allChords.add(C_MINOR);
-        allChords.add(C_MAJOR_SHARP);
-        allChords.add(C_MINOR_SHARP);
-        allChords.add(D_MAJOR_FLAT);
-        allChords.add(D_MINOR_FLAT);
         allChords.add(D_MAJOR);
-        allChords.add(D_MINOR);
-        allChords.add(D_MAJOR_SHARP);
-        allChords.add(D_MINOR_SHARP);
-        allChords.add(E_MAJOR_FLAT);
-        allChords.add(E_MINOR_FLAT);
         allChords.add(E_MAJOR);
-        allChords.add(E_MINOR);
         allChords.add(F_MAJOR);
-        allChords.add(F_MINOR);
-        allChords.add(F_MAJOR_SHARP);
-        allChords.add(F_MINOR_SHARP);
-        allChords.add(G_MAJOR_FLAT);
-        allChords.add(G_MINOR_FLAT);
         allChords.add(G_MAJOR);
-        allChords.add(G_MINOR);
-        allChords.add(G_MINOR_SHARP);
-        allChords.add(G_MAJOR_SHARP);
-        allChords.add(A_MINOR_FLAT);
-        allChords.add(A_MAJOR_FLAT);
         allChords.add(A_MAJOR);
-        allChords.add(A_MINOR);
-        allChords.add(A_MAJOR_SHARP);
-        allChords.add(A_MINOR_SHARP);
-        allChords.add(B_MAJOR_FLAT);
-        allChords.add(B_MINOR_FLAT);
         allChords.add(B_MAJOR);
-        allChords.add(B_MINOR);
+        if (withMinors && withFlatAndSharp){
+            allChords.add(C_MINOR_SHARP);
+            allChords.add(D_MINOR_FLAT);
+            allChords.add(E_MINOR_FLAT);
+            allChords.add(D_MINOR_SHARP);
+            allChords.add(F_MINOR_SHARP);
+            allChords.add(G_MINOR_FLAT);
+            allChords.add(A_MINOR_FLAT);
+            allChords.add(G_MINOR_SHARP);
+            allChords.add(A_MINOR_SHARP);
+            allChords.add(B_MINOR_FLAT);
+        }
+        if (withMinors){
+            allChords.add(C_MINOR);
+            allChords.add(D_MINOR);
+            allChords.add(E_MINOR);
+            allChords.add(G_MINOR);
+            allChords.add(F_MINOR);
+            allChords.add(A_MINOR);
+            allChords.add(B_MINOR);
+        }
+        if (withFlatAndSharp){
+            allChords.add(C_MAJOR_SHARP);
+            allChords.add(D_MAJOR_FLAT);
+            allChords.add(D_MAJOR_SHARP);
+            allChords.add(E_MAJOR_FLAT);
+            allChords.add(F_MAJOR_SHARP);
+            allChords.add(G_MAJOR_FLAT);
+            allChords.add(G_MAJOR_SHARP);
+            allChords.add(A_MAJOR_FLAT);
+            allChords.add(A_MAJOR_SHARP);
+            allChords.add(B_MAJOR_FLAT);
+        }
         return allChords;
     }
 }

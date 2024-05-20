@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private TextView chordText;
     private Button resetButton;
@@ -50,18 +52,19 @@ public class MainActivity extends AppCompatActivity {
 
     protected void swipeChords(int timeGap){
         Handler myHandler = new Handler(Looper.getMainLooper());
-        chordText.setText(chordToText(Chord.getAllChords().get(0)));
+        ArrayList<Chord> chords = Chord.getChords(true, true);
+        chordText.setText(chordToText(chords.get(0)));
         final int[] i={1};
         myHandler.postDelayed(
                 new Runnable() {
                     @Override
                     public void run() {
-                        if (i[0] < Chord.getAllChords().size() && running[0]) {
-                            chordText.setText(chordToText(Chord.getAllChords().get(i[0])));
+                        if (i[0] < chords.size() && running[0]) {
+                            chordText.setText(chordToText(chords.get(i[0])));
                             i[0]++;
                             myHandler.postDelayed(this, timeGap);
-                        }
-                        if (i[0]==Chord.getAllChords().size()){ // TODO: Le défilement n'affiche pas le dernier élément
+                        }// TODO: Le défilement n'affiche pas le dernier élément
+                        if (i[0]==chords.size()){
                             resetButton.callOnClick();
                         }
                     }
@@ -100,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+        resetButton.setEnabled(false);
 
 
         secondsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
