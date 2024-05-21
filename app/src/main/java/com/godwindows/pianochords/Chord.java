@@ -1,6 +1,7 @@
 package com.godwindows.pianochords;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public enum Chord {
@@ -111,6 +112,7 @@ public enum Chord {
             allChords.add(A_MAJOR_SHARP);
             allChords.add(B_MAJOR_FLAT);
         }
+        Collections.shuffle(allChords);//Shuffle the chords in order to have a different order at each call
         return allChords;
     }
 

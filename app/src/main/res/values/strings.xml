@@ -8,5 +8,5 @@
     <string name="thirdValue">15 secondes </string>
     <string name="includeMinorsTitle">Inclus accords mineurs </string>
     <string name="includeFlatAndSharpTitle">Inclus accords bémol et dièse </string>
-    <string name="traductionTitle">Traduire les notes en français</string>
+    <string name="traductionTitle">Traduire les accords en français</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.godwindows.pianochords;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView chordMainText;
     private TextView chordExponantText;
     private TextView chordSubscriptText;
+    private TextView timerText;
     private Button resetButton;
     private Button startButton;
     private RadioButton smallValueRadio ;
@@ -42,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private Switch minorSwitch;
     private Switch flatAndSharpSwitch;
     private Switch traductionSwitch;
-    private Handler myHandler;
+    private Handler chordHandler;
+    private Handler timerHandler;
 
     /*The following values can be changed if you want to custom the delay duration between two chords.
     Just make sure to change the 'string.xml' file accordingly on the firstValue, secondValue and thirdValue keys*/
@@ -50,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private final int MEDIUM_DURATION = 10000;
     private final int LARGE_DURATION = 15000;
     private int delay ;
-    private  boolean[] running = {true};//This variable will be signal to know if the app can continue swiping chords or if the app has to stop swiping( when "reset" is pressed for example)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         chordMainText =  findViewById(R.id.chordMainText);
         chordExponantText =  findViewById(R.id.chordExponantText);
         chordSubscriptText =  findViewById(R.id.chordSubscriptText);
+        timerText = findViewById(R.id.timerText);
         resetButton = (Button) findViewById(R.id.resetButton);
         startButton = (Button) findViewById(R.id.startButton);
         smallValueRadio = findViewById(R.id.smallValueRadio);
@@ -73,24 +76,55 @@ public class MainActivity extends AppCompatActivity {
     }
     /* This method will go through all the needed chords and put them on the screen, one after another */
     protected void swipeChords(int timeGap){
-        myHandler = new Handler(Looper.getMainLooper());
+        chordHandler = new Handler(Looper.getMainLooper());
         ArrayList<Chord> chords = Chord.getChords(minorSwitch.isChecked(), flatAndSharpSwitch.isChecked()); //Get all the needed chords from the Chord enum and put them in an chord array
         updateChordText(chords.get(0));//Put the first chord on the screen without any delay
+        setTimer(timeGap/1000);
         final int[] i={1};// an index variable to browse the chord array
-        myHandler.postDelayed(
+        chordHandler.postDelayed(
                 new Runnable() {
                     @Override
                     public void run() {
-                        if (i[0] < chords.size() && running[0]) {//If the index is still in the chord array's bounds and the "reset" button has not been pressed
+                        if (i[0] < chords.size()) {//If the index is still in the chord array's bounds
                             updateChordText(chords.get(i[0]));//Put the next chord on the screen
+                            setTimer(timeGap/1000);
                             i[0]++;
-                            myHandler.postDelayed(this, timeGap);// Re-launch the runnable for the next index in the chord array
+                            chordHandler.postDelayed(this, timeGap);// Re-launch the runnable for the next index in the chord array
                         }else if (i[0]==chords.size()){ // If the chord array is entirely read
                             resetButton.callOnClick(); //stop the swiping
                         }
                     }
                 },
                 timeGap
+        );
+    }
+
+
+    //Launch a timer on the screen
+    protected void setTimer(int time){
+        timerText.setTextColor(chordMainText.getTextColors());//Restore the timer to the default color of text
+        int[] seconds = {time};
+        timerHandler = new Handler(Looper.getMainLooper());
+        if (seconds[0] <=5){
+            timerText.setTextColor(Color.RED);//Change the color to red when there is less then 5 seconds left
+        }
+        timerText.setText(seconds[0] + " s");//Update the timer on the screen
+        seconds[0]--;
+        timerHandler.postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        if (seconds[0] >0) {
+                            if (seconds[0] <=5){
+                                timerText.setTextColor(Color.RED);
+                            }
+                            timerText.setText(seconds[0] + " s");
+                            seconds[0]--;
+                            timerHandler.postDelayed(this, 1000);// Re-launch the runnable to continue the timer
+                        }
+                    }
+                },
+                1000
         );
     }
 
@@ -104,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        running[0] = true; //Allow the swiping
                         startButton.setEnabled(false);
                         resetButton.setEnabled(true);
                         disableOptions();
@@ -118,11 +151,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         clearChordText();
+                        timerText.setText("");
                         resetButton.setEnabled(false);
                         startButton.setEnabled(true);
                         enableOptions();
-                        running[0] = false;
-                        myHandler.removeCallbacksAndMessages(null);
+                        chordHandler.removeCallbacksAndMessages(null);
+                        timerHandler.removeCallbacksAndMessages(null);
                     }
                 }
         );
