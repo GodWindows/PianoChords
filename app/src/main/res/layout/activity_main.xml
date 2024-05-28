@@ -90,7 +90,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/timerText" />
 
                 <RadioGroup
-                    android:id="@+id/radioGroup"
+                    android:id="@+id/secondsRadioGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -127,7 +127,7 @@
                     android:layout_marginTop="32dp"
                     android:text="@string/includeMinorsTitle"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+                    app:layout_constraintTop_toBottomOf="@+id/secondsRadioGroup" />
 
 
                 <TextView
@@ -158,7 +158,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="28dp"
                     app:layout_constraintStart_toEndOf="@+id/textView6"
-                    app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+                    app:layout_constraintTop_toBottomOf="@+id/secondsRadioGroup" />
 
                 <Switch
                     android:id="@+id/flatAndSharpSwitch"

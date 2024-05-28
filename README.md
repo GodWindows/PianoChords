@@ -53,6 +53,8 @@ The application cycles through a list of chords, displaying each chord for the d
 * A timer counts down the time remaining for each chord, turning red when less than 5 seconds remain.
 * Chord text is updated with appropriate accidentals and minor indicators based on user settings.
 
-### Customization
+### Algorithmic Choices & Customization
 The code is written in the most generic way possible to let you fully customize it and adapt it to any similar project.
-For exemple, to customize the delay durations between chords, modify the constants `SMALL_DURATION`, `MEDIUM_DURATION`, and `LARGE_DURATION` in `MainActivity` and just update the corresponding values in the `strings.xml` file.
+For example, to customize the delay durations between chords, modify the constants `SMALL_DURATION`, `MEDIUM_DURATION`, and `LARGE_DURATION` in `MainActivity` and just update the corresponding values in the `strings.xml` file.
+The app use Android Binding to manipulate the different layout components. `findViewById()` could have been an excellent choice too but since the app may be updated, customized and adapted to contain more components, the use of binding seems to be best choice here.
+The Chord's static method `getChords()` use a succession of if-statements to fill the chords array with the required chords. With this architecture, we can easily update the method if we ever want to add more options to the chord

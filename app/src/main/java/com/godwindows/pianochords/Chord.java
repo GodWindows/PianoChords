@@ -79,7 +79,7 @@ public enum Chord {
         allChords.add(G_MAJOR);
         allChords.add(A_MAJOR);
         allChords.add(B_MAJOR);
-        if (withMinors && withFlatAndSharp){ // add all the flat/sharp and minor chords
+        if (withMinors && withFlatAndSharp){ // add the flat/sharp and minor chords
             allChords.add(C_MINOR_SHARP);
             allChords.add(D_MINOR_FLAT);
             allChords.add(E_MINOR_FLAT);
@@ -91,7 +91,7 @@ public enum Chord {
             allChords.add(A_MINOR_SHARP);
             allChords.add(B_MINOR_FLAT);
         }
-        if (withMinors){ // add only the minor chords
+        if (withMinors){ // add the minor chords
             allChords.add(C_MINOR);
             allChords.add(D_MINOR);
             allChords.add(E_MINOR);
@@ -100,7 +100,7 @@ public enum Chord {
             allChords.add(A_MINOR);
             allChords.add(B_MINOR);
         }
-        if (withFlatAndSharp){ // add only the flat/sharp chords
+        if (withFlatAndSharp){ // add the flat/sharp chords
             allChords.add(C_MAJOR_SHARP);
             allChords.add(D_MAJOR_FLAT);
             allChords.add(D_MAJOR_SHARP);
