@@ -1,5 +1,5 @@
 ## PianoChords Android Application
-![The PianoChord App Icon](/app/src/main/res/ic_launcher-playstore.png)
+![The PianoChord App Icon](app/src/main/res/mipmap-hdpi/ic_launcher.webp)
 ### Overview
 
 The PianoChords application is an educational tool designed to help users learn and practice piano chords. It cycles through different piano chords, displaying them on the screen in a random order with various customizable options such as the chord duration, minor chords, and the use of flats and sharps.
