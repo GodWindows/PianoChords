@@ -1,5 +1,5 @@
 ## PianoChords Android Application
-![The PianoChord App Icon](app/src/main/res/mipmap-xxhdpi/ic_launcher.webp)
+![The PianoChord App Icon](app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp)
 ### Overview
 
 The PianoChords application is an educational tool designed to help users learn and practice piano chords. It cycles through different piano chords, displaying them on the screen in a random order with various customizable options such as the chord duration, minor chords, and the use of flats and sharps.
@@ -59,3 +59,6 @@ The code is written in the most generic way possible to let you fully customize 
 For example, to customize the delay durations between chords, modify the constants `SMALL_DURATION`, `MEDIUM_DURATION`, and `LARGE_DURATION` in `MainActivity` and just update the corresponding values in the `strings.xml` file.
 The app use Android Binding to manipulate the different layout components. `findViewById()` could have been an excellent choice too but since the app may be updated, customized and adapted to contain more components, the use of binding seems to be best choice here.
 The Chord's static method `getChords()` use a succession of if-statements to fill the chords array with the required chords. With this architecture, we can easily update the method if we ever want to add more options to the chord
+
+### Other Informations
+The app has been tested on a Samsung Galaxy S22 running Android 14.
