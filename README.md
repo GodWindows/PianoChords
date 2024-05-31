@@ -54,6 +54,7 @@ The application cycles through a list of chords, displaying each chord for the d
 * Chord text is updated with appropriate accidentals and minor indicators based on user settings.
 
 ### Algorithmic Choices & Customization
+The min SDK is set to 24. 
 The code is written in the most generic way possible to let you fully customize it and adapt it to any similar project.
 For example, to customize the delay durations between chords, modify the constants `SMALL_DURATION`, `MEDIUM_DURATION`, and `LARGE_DURATION` in `MainActivity` and just update the corresponding values in the `strings.xml` file.
 The app use Android Binding to manipulate the different layout components. `findViewById()` could have been an excellent choice too but since the app may be updated, customized and adapted to contain more components, the use of binding seems to be best choice here.
